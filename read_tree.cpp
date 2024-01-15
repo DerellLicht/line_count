@@ -17,6 +17,7 @@
 
 #include "common.h"
 #include "qualify.h"
+#include "line_count.h"
 
 //lint -esym(534, FindClose)  // Ignoring return value of function
 //lint -esym(534, __builtin_va_start, vsprintf)
@@ -33,12 +34,6 @@ int _CRT_glob = 0 ;
 uint filecount = 0 ;
 
 char file_spec[PATH_MAX+1] = "" ;
-
-//***********************************************************************
-//  This is the function which actually does the work in the application
-//***********************************************************************
-extern void execute_file_operation(char *full_path, char *filename);
-extern void usage(void);
 
 //************************************************************
 #define  MAX_EXT_LEN    6
@@ -350,7 +345,7 @@ static void display_file_list(char *full_path, ffdata_p ftop)
 {
    //  now, do something with the files that you found   
    for (ffdata *ftemp = ftop; ftemp != NULL; ftemp = ftemp->next) {
-      execute_file_operation(full_path, ftemp->filename);
+      execute_file_operation(full_path, ftemp->filename);   //lint !e534
    }
    puts("");
 }
@@ -365,7 +360,7 @@ static void display_tree_filename (char *frmstr, dirs const * const ktemp)
    if (ktemp->ftop != NULL) {
       display_file_list(ktemp->fpath, ktemp->ftop);
    }
-}
+}  //lint !e715 !e818
 
 //**********************************************************
 //  recursive routine to display directory tree
@@ -483,8 +478,9 @@ int main(int argc, char **argv)
    }
 
    //  now display the resulting directory tree
-   execute_file_operation(NULL, NULL); //  reset internal variables
+   line_count_reset();
    display_dir_tree(top);
+   printf("total line count: %u\n", line_count_total());
    return 0;
 }
 
