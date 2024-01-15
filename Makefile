@@ -27,7 +27,7 @@ endif
 
 LIBS=-lshlwapi
 
-CPPSRC=read_tree.cpp common.cpp qualify.cpp
+CPPSRC=line_count.cpp read_tree.cpp common.cpp qualify.cpp
 
 OBJS = $(CSRC:.c=.o) $(CPPSRC:.cpp=.o)
 
@@ -39,9 +39,9 @@ OBJS = $(CSRC:.c=.o) $(CPPSRC:.cpp=.o)
 	$(TOOLS)\g++ $(CxxFLAGS) $<
 
 ifeq ($(USE_64BIT),NO)
-BIN = read_tree.exe
+BIN = line_count.exe
 else
-BIN = read_tree64.exe
+BIN = line_count64.exe
 endif
 
 all: $(BIN)
@@ -67,6 +67,7 @@ $(BIN): $(OBJS)
 
 # DO NOT DELETE
 
+line_count.o: common.h
 read_tree.o: common.h qualify.h
 common.o: common.h
 qualify.o: qualify.h

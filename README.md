@@ -1,11 +1,6 @@
-# read_tree - generic utility for searching folder tree for files
-This will be a generic utility to recursively search through all folders
-below specified target folder, and locate all files meeting the
-specified file extension.
-This is intended as a template for reading all files in current folder tree,
-then performing some task on them.  The print statement at the end
-can be replaced with a function call to perform the desired operation
-on each discovered file.
+# line_count - recursive line-counting program
+Recursively scan through folder tree, count lines in all files with 
+specified file extensions.
 
 ****************************************************************************************
 This project is licensed under Creative Commons CC0 1.0 Universal;  

@@ -21,6 +21,7 @@
 //lint -esym(534, FindClose)  // Ignoring return value of function
 //lint -esym(534, __builtin_va_start, vsprintf)
 //lint -esym(818, filespec, argv)  //could be declared as pointing to const
+//lint -esym(613, ftail)  //  Possible use of null pointer in left argument to operator '->' 
 //lint -e10  Expecting '}'
 
 //  per Jason Hood, this turns off MinGW's command-line expansion, 
@@ -33,7 +34,12 @@ uint filecount = 0 ;
 
 char file_spec[PATH_MAX+1] = "" ;
 
-//lint -esym(613, ftail)  //  Possible use of null pointer in left argument to operator '->' 
+//***********************************************************************
+//  This is the function which actually does the work in the application
+//***********************************************************************
+extern void execute_file_operation(char *full_path, char *filename);
+extern void usage(void);
+
 //************************************************************
 #define  MAX_EXT_LEN    6
 //lint -esym(751, ffdata_t)  // local typedef not referenced
@@ -339,14 +345,6 @@ static int build_dir_tree (char *tpath)
    return result ;
 }  //lint !e818
 
-//***********************************************************************
-//  This is the function which actually does the work in the application
-//***********************************************************************
-static void execute_file_operation(char *full_path, char *filename)
-{
-   printf("%s%s\n", full_path, filename);
-}  //lint !e818
-      
 //**********************************************************
 static void display_file_list(char *full_path, ffdata_p ftop)
 {
@@ -360,9 +358,9 @@ static void display_file_list(char *full_path, ffdata_p ftop)
 //**********************************************************
 static void display_tree_filename (char *frmstr, dirs const * const ktemp)
 {
-   if (ktemp->fpath != NULL) {
-      printf("%s[%s]\n", frmstr, ktemp->fpath) ;
-   }
+   // if (ktemp->fpath != NULL) {
+   //    printf("%s[%s]\n", frmstr, ktemp->fpath) ;
+   // }
 
    if (ktemp->ftop != NULL) {
       display_file_list(ktemp->fpath, ktemp->ftop);
@@ -422,16 +420,6 @@ static void display_dir_tree (dirs * ktop)
       //  goto next brother
       ktemp = ktemp->brothers;
    }                            //  while not done listing directories
-}
-
-//**********************************************************************************
-void usage(void)
-{
-   puts("Usage: read_tree [base_folder] [target_file_extension]");
-   puts("");
-   puts("base_folder is required; to specify current folder, use period (.)");
-   puts("");
-   puts("file_extension must include period; example: .cpp");
 }
 
 //**********************************************************************************
@@ -495,6 +483,7 @@ int main(int argc, char **argv)
    }
 
    //  now display the resulting directory tree
+   execute_file_operation(NULL, NULL); //  reset internal variables
    display_dir_tree(top);
    return 0;
 }
