@@ -46,14 +46,9 @@ void usage(void)
 //***********************************************************************
 int execute_file_operation(char *full_path, char *filename)
 {
-   if (full_path == NULL) {
-      total_line_count = 0 ;
-      return EINVAL;
-   }
    char target_file[MAX_PATH+1] ;
    
-   sprintf(target_file, "%s%s\n", full_path, filename);
-   printf("%s: ", target_file);
+   sprintf(target_file, "%s%s", full_path, filename);
    
    FILE* infd = fopen(target_file, "rt");
    if (infd == NULL) {
@@ -66,7 +61,7 @@ int execute_file_operation(char *full_path, char *filename)
       lcount++ ;
    }
    fclose(infd);
-   printf("%u lines\n", lcount);
+   printf("%5u %s\n", lcount, target_file);
    total_line_count += lcount ;
    return 0;
    
