@@ -35,6 +35,8 @@ uint filecount = 0 ;
 
 char file_spec[PATH_MAX+1] = "" ;
 
+static DLineCount * LineCount = NULL;
+
 //************************************************************
 #define  MAX_EXT_LEN    6
 //lint -esym(751, ffdata_t)  // local typedef not referenced
@@ -345,7 +347,7 @@ static void display_file_list(char *full_path, ffdata_p ftop)
 {
    //  now, do something with the files that you found   
    for (ffdata *ftemp = ftop; ftemp != NULL; ftemp = ftemp->next) {
-      execute_file_operation(full_path, ftemp->filename);   //lint !e534
+      LineCount->execute_file_operation(full_path, ftemp->filename);   //lint !e534
    }
    puts("");
 }
@@ -440,14 +442,14 @@ int main(int argc, char **argv)
          break ;
             
       default:
-         usage();
+         LineCount->usage();
          return 1 ;
       }
    }
 
    if (path_spec[0] == 0) {
       // strcpy(path_spec, ".");
-      usage();
+      LineCount->usage();
       return 1;
    }
 
@@ -478,9 +480,8 @@ int main(int argc, char **argv)
    }
 
    //  now display the resulting directory tree
-   line_count_reset();
    display_dir_tree(top);
-   printf("total line count: %u\n", line_count_total());
+   printf("total line count: %u\n", LineCount->line_count_total());
    return 0;
 }
 

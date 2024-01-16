@@ -6,6 +6,9 @@
 //  
 //  Written by:  Derell Licht
 //**********************************************************************************
+//  non-class version of this program is 12,800 bytes
+//      class version of this program is 13,312 bytes
+//**********************************************************************************
 #include <windows.h>
 #include <stdio.h>
 #include <errno.h>
@@ -17,22 +20,22 @@
 
 #define  MAX_LINE_LEN   4096
 
-static uint total_line_count = 0 ;
+//***********************************************************************
+DLineCount::DLineCount() :
+   total_line_count(0)
+{
+   printf("DLineCount constructor executed\n");
+}
 
 //***********************************************************************
-void line_count_reset(void)
+void DLineCount::line_count_reset(void)
 {
    total_line_count = 0 ;
 }
 
-//***********************************************************************
-uint line_count_total(void)
-{
-   return total_line_count ;
-}
-
 //**********************************************************************************
-void usage(void)
+//lint -esym(843, LineCount)
+void DLineCount::usage(void) const
 {
    puts("Usage: line_count [base_folder] [target_file_extension]");
    puts("");
@@ -44,7 +47,7 @@ void usage(void)
 //***********************************************************************
 //  This is the function which actually does the work in the application
 //***********************************************************************
-int execute_file_operation(char *full_path, char *filename)
+int DLineCount::execute_file_operation(char *full_path, char *filename)
 {
    char target_file[MAX_PATH+1] ;
    
