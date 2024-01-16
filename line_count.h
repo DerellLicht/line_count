@@ -14,7 +14,6 @@ private:
 public:
    DLineCount() ;
    ~DLineCount() {};
-   void usage(void) const;
    void line_count_reset(void);
    int execute_file_operation(char *full_path, char *filename);
    unsigned line_count_total(void) const 

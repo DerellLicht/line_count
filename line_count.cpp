@@ -24,24 +24,12 @@
 DLineCount::DLineCount() :
    total_line_count(0)
 {
-   printf("DLineCount constructor executed\n");
 }
 
 //***********************************************************************
 void DLineCount::line_count_reset(void)
 {
    total_line_count = 0 ;
-}
-
-//**********************************************************************************
-//lint -esym(843, LineCount)
-void DLineCount::usage(void) const
-{
-   puts("Usage: line_count [base_folder] [target_file_extension]");
-   puts("");
-   puts("base_folder is required; to specify current folder, use period (.)");
-   puts("");
-   puts("file_extension must include period; example: .cpp");
 }
 
 //***********************************************************************

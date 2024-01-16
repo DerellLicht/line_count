@@ -421,6 +421,16 @@ static void display_dir_tree (dirs * ktop)
 }
 
 //**********************************************************************************
+void usage(void)
+{
+   puts("Usage: line_count [base_folder] [target_file_extension]");
+   puts("");
+   puts("base_folder is required; to specify current folder, use period (.)");
+   puts("");
+   puts("file_extension must include period; example: .cpp");
+}
+
+//**********************************************************************************
 int main(int argc, char **argv)
 {
    int idx, result ;
@@ -443,14 +453,14 @@ int main(int argc, char **argv)
          break ;
             
       default:
-         LineCount->usage();
+         usage();
          return 1 ;
       }
    }
 
    if (path_spec[0] == 0) {
       // strcpy(path_spec, ".");
-      LineCount->usage();
+      usage();
       return 1;
    }
 
@@ -481,6 +491,7 @@ int main(int argc, char **argv)
    }
 
    //  now display the resulting directory tree
+   LineCount = new DLineCount();
    display_dir_tree(top);
    printf("total line count: %u\n", LineCount->line_count_total());
    return 0;
