@@ -1,12 +1,12 @@
 # makefile for media_list app
-SHELL=cmd.exe
+#SHELL=cmd.exe
 USE_DEBUG = NO
 USE_64BIT = NO
 
 ifeq ($(USE_64BIT),YES)
 TOOLS=d:\tdm64\bin
 else
-TOOLS=c:\mingw\bin
+TOOLS=d:\tdm32\bin
 endif
 
 ifeq ($(USE_DEBUG),YES)

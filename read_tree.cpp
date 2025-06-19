@@ -13,7 +13,7 @@
 
 #include <windows.h>
 #include <stdio.h>
-#include <stdlib.h>  //  PATH_MAX
+#include <stdlib.h>  //  MAX_PATH_LEN
 
 #include "common.h"
 #include "qualify.h"
@@ -33,7 +33,7 @@ int _CRT_glob = 0 ;
 
 uint filecount = 0 ;
 
-char file_spec[PATH_MAX+1] = "" ;
+char file_spec[MAX_PATH_LEN+1] = "" ;
 
 static DLineCount * LineCount = NULL;
 
@@ -48,10 +48,10 @@ typedef struct ffdata {
 } ffdata_t, *ffdata_p;
 
 //************************************************************
-static char dirpath[PATH_MAX];
+static char dirpath[MAX_PATH_LEN];
 unsigned level;
 
-static char dir_full_path[PATH_MAX];
+static char dir_full_path[MAX_PATH_LEN];
 static uint dir_fpath_len = 0 ;
 
 //**********************************************************
@@ -343,6 +343,8 @@ static int build_dir_tree (char *tpath)
 }  //lint !e818
 
 //**********************************************************
+//  this is the function which actually acts on each file
+//**********************************************************
 static void display_file_list(char *full_path, ffdata_p ftop)
 {
    //  now, do something with the files that you found   
@@ -435,20 +437,20 @@ int main(int argc, char **argv)
 {
    int idx, result ;
    uint arg_count = 0 ;
-   char path_spec[PATH_MAX+1] = "" ;
+   char path_spec[MAX_PATH_LEN+1] = "" ;
    
    for (idx=1; idx<argc; idx++) {
       char *p = argv[idx] ;
       switch(arg_count) {
       case 0:
-         strncpy(path_spec, p, PATH_MAX);
-         path_spec[PATH_MAX] = 0 ;
+         strncpy(path_spec, p, MAX_PATH_LEN);
+         path_spec[MAX_PATH_LEN] = 0 ;
          arg_count++ ;
          break ;
             
       case 1:
-         strncpy(file_spec, p, PATH_MAX);
-         file_spec[PATH_MAX] = 0 ;
+         strncpy(file_spec, p, MAX_PATH_LEN);
+         file_spec[MAX_PATH_LEN] = 0 ;
          arg_count++ ;
          break ;
             

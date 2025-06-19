@@ -30,12 +30,13 @@
 
 #include <shlwapi.h>
 #include <limits.h>
+#define  MAX_PATH_LEN       1024
 
 #include "qualify.h"
 
 #define  LOOP_FOREVER   true
 
-static char path[PATH_MAX];
+static char path[MAX_PATH_LEN];
 
 //lint -esym(438, drive)  Last value assigned to variable 'drive' not used
 
@@ -94,7 +95,7 @@ unsigned qualify (char *argptr)
    //******************************************************
    //  get expanded path (this doesn't support UNC)
    //******************************************************
-   plen = GetFullPathName (argptr, PATH_MAX, (LPTSTR) pathptr, NULL);
+   plen = GetFullPathName (argptr, MAX_PATH_LEN, (LPTSTR) pathptr, NULL);
    if (plen == 0)
       return QUAL_INV_DRIVE;
 
