@@ -20,10 +20,6 @@ LFLAGS = -s -O3
 endif
 CFLAGS += -Weffc++
 CFLAGS += -Wno-write-strings
-ifeq ($(USE_64BIT),YES)
-CFLAGS += -DUSE_64BIT
-CxxFLAGS += -DUSE_64BIT
-endif
 
 LIBS=-lshlwapi
 
@@ -38,11 +34,7 @@ OBJS = $(CSRC:.c=.o) $(CPPSRC:.cpp=.o)
 %.o: %.cxx
 	$(TOOLS)\g++ $(CxxFLAGS) $<
 
-ifeq ($(USE_64BIT),NO)
 BIN = line_count.exe
-else
-BIN = line_count64.exe
-endif
 
 all: $(BIN)
 
