@@ -3,11 +3,7 @@
 USE_DEBUG = NO
 USE_64BIT = NO
 
-ifeq ($(USE_64BIT),YES)
-TOOLS=d:\tdm64\bin
-else
-TOOLS=d:\tdm32\bin
-endif
+include ..\tool_select.mak 
 
 ifeq ($(USE_DEBUG),YES)
 CFLAGS = -Wall -g -c
